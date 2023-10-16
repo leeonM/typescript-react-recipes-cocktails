@@ -1,25 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Navbar from './components/Navbar';
+import Recipe from './components/Recipe';
+import Cocktail from './components/Cocktail';
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+  const Layout = () => {
+    return (
+      <div className='h-[100vh] overflow-scroll bg-gradient-to-r from-slate-100 via-purple-100 to-sky-100'>
+        <Navbar />
+        <Outlet />
     </div>
+    );
+  };
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: (
+          <Layout />
+      ),
+      children: [
+        {
+          path: "/",
+          element: <Recipe />,
+        },
+        {
+          path: "/cocktail",
+          element: <Cocktail />,
+        },
+      ],
+    }
+  ]);
+
+  return (
+      <RouterProvider router={router} />
   );
 }
 
